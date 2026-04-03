@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto bg-white p-5 sm:p-8 rounded-xl shadow-lg">
+
+    <!-- Profile Header -->
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 mb-6 text-center sm:text-left">
+
+        <!-- Profile Image -->
+        <img src="{{ profile.profile_image.url|default:'/static/default.png' }}" 
+             class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border">
+
+        <!-- User Info -->
+        <div>
+            <h2 class="text-xl sm:text-2xl font-bold">
+                {{ request.user.username }}
+            </h2>
+            <p class="text-gray-600 text-sm sm:text-base">
+                {{ request.user.email }}
+            </p>
+        </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="mb-6">
+        <h3 class="font-semibold text-lg mb-2">Bio</h3>
+        <p class="text-gray-700 text-sm sm:text-base">
+            {{ profile.bio|default:"No bio added yet." }}
+        </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mb-6">
+        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+            <h3 class="text-lg sm:text-xl font-bold">{{ posts.count }}</h3>
+            <p class="text-gray-600 text-sm">Posts</p>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+            <h3 class="text-lg sm:text-xl font-bold">0</h3>
+            <p class="text-gray-600 text-sm">Likes</p>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded-lg shadow-sm">
+            <h3 class="text-lg sm:text-xl font-bold">0</h3>
+            <p class="text-gray-600 text-sm">Comments</p>
+        </div>
+    </div>
+
+    <!-- User Posts -->
+    <div>
+        <h3 class="text-lg sm:text-xl font-semibold mb-4">My Blogs</h3>
+
+        <div class="space-y-3">
+            {% for post in posts %}
+                <div class="p-4 border rounded-lg hover:shadow-md transition">
+                    <h4 class="font-semibold text-base sm:text-lg">
+                        {{ post.title }}
+                    </h4>
+                    <p class="text-xs sm:text-sm text-gray-500">
+                        {{ post.created_at|date:"M d, Y" }}
+                    </p>
+                </div>
+            {% empty %}
+                <p class="text-gray-500">No posts yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

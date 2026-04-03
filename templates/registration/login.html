@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="flex items-center justify-center mt-10 px-4">
+    
+    <div class="w-full max-w-md sm:max-w-lg bg-white p-6 sm:p-8 rounded-xl shadow-lg">
+        
+        <h2 class="text-xl sm:text-2xl font-bold mb-6 text-center text-gray-800">
+            Login to Your Account
+        </h2>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div>
+                <label class="block mb-1 text-sm font-medium text-gray-700">
+                    Username
+                </label>
+                <input type="text" name="username"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition"
+                       placeholder="Enter username">
+            </div>
+
+            <!-- Password -->
+            <div>
+                <label class="block mb-1 text-sm font-medium text-gray-700">
+                    Password
+                </label>
+                <input type="password" name="password"
+                       class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none transition"
+                       placeholder="Enter password">
+            </div>
+
+            <!-- Button -->
+            <button type="submit"
+                class="w-full bg-blue-500 text-white py-2.5 rounded-lg hover:bg-blue-600 transition duration-200 font-semibold">
+                Login
+            </button>
+        </form>
+
+        <!-- Extra Links -->
+        <div class="text-center text-sm mt-5 space-y-2">
+            <p>
+                Don't have an account?
+                <a href="{% url 'blog:signup' %}" class="text-blue-500 hover:underline">
+                    Register
+                </a>
+            </p>
+
+            <!-- Optional future -->
+            <p>
+                <a href="#" class="text-gray-500 hover:underline">
+                    Forgot Password?
+                </a>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

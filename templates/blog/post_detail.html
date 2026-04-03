@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto p-6 bg-white shadow rounded">
+
+    <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
+
+    {% if post.featured_image %}
+        <img src="{{ post.featured_image.url }}" class="mb-4 rounded">
+    {% endif %}
+
+    <div class="prose">
+        {{ post.content|safe }}
+    </div>
+
+    <p class="text-sm text-gray-500 mt-4">
+        {{ post.created_at }}
+    </p>
+
+    {% if request.user == post.author %}
+        <div class="mt-4">
+            <a href="{% url 'blog:update_post' post.slug %}" class="text-blue-500">Edit</a>
+            |
+            <a href="{% url 'blog:delete_post' post.slug %}" class="text-red-500">Delete</a>
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}
